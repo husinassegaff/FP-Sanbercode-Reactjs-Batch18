@@ -1,11 +1,19 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useState, useEffect } from "react"
 import {UserContext} from "../context/UserContext"
+import { Form, Input, Button } from 'antd';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import axios from "axios"
 
-const Login = () =>{
+const HorizontalLoginForm = () =>{
+  const[form] = Form.useForm()
+  const[, forceUpdate] = useState()
   const [, setUser] = useContext(UserContext)
   const [input, setInput] = useState({email: "" , password: ""})
 
+  useEffect(() => {
+    forceUpdate({});
+  }, []);
+  
   const handleSubmit = (event) =>{
     event.preventDefault()
     axios.post("https://backendexample.sanbersy.com/api/user-login", {
@@ -43,18 +51,23 @@ const Login = () =>{
   return(
     <>
       <div style={{margin: "0 auto", width: "25%", padding: "50px"}}>
-        <form onSubmit={handleSubmit}>
+        <Form form={form} name="horizontal_login" layout = "inline" onSubmit={handleSubmit}>
           <label>Email: </label>
-          <input type="email" name="email" onChange={handleChange} value={input.email}/>
+          <Input prefix={<UserOutlined className="site-form-item-icon"/>} type="email" name="email" onChange={handleChange} value={input.email}/>
           <br/>
           <label>Password: </label>
-          <input type="password" name="password" onChange={handleChange} value={input.password}/>
+          <Input prefix={<LockOutlined className="site-form-item-icon"/>} type="password" name="password" onChange={handleChange} value={input.password}/>
           <br/>
-          <button>Login</button>
-        </form>
+          <Button
+          type="primary"
+          htmlType="submit"
+          disabled={
+            !form.isFieldsTouched(true) || form.getFieldsError().filter(({errors})=> errors.length).length
+          }>Login</Button>
+        </Form>
       </div>
     </>
   )
 }
 
-export default Login
+export default HorizontalLoginForm
