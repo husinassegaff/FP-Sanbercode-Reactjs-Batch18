@@ -1,6 +1,6 @@
 import React from "react"
 
-const Footer = () =>{
+const Copyright = () =>{
   return (
     <footer>
       <h5>copyright &copy; 2020 by Husin Muhammad Assegaff</h5>
@@ -8,4 +8,4 @@ const Footer = () =>{
   )
 }
 
-export default Footer
+export default Copyright
