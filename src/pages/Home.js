@@ -1,5 +1,10 @@
 import React, {Component} from "react"
 import axios from "axios"
+import { Space, Card } from 'antd';
+import { Typography } from 'antd';
+
+const { Title } = Typography;
+const { Paragraph } = Typography;
 
 function minuteToHours(num){
   var hours = (num / 60);
@@ -38,30 +43,35 @@ class Home extends Component {
   render(){
     return (
       <>
-        <h1>Daftar Film Film Terbaik</h1>
+      <br />
+        <Title>Daftar Film-Film Terbaik</Title>
         <div id="article-list">
           {
             this.state.movies.map((item)=>{
               return(
-                <div>
-                  <h3>{item.title}</h3>
-                  <div style={{display: "inline-block"}}>
-                    <div style={{width: "40vw", float: "left", display: "inline-block"}}>
-                      <img style={{width: "100%", height: "300px", objectFit: "cover"}} src={item.image_url} />
+                <Space direction="vertical" style={{padding:"10px", margin:"auto"}}>
+                  <Card style={{ width:450}}>
+                    <div>
+                      <Title level={3}>{item.title}</Title>
+                      <div style={{display: "inline-block"}}>
+                        <div style={{width: "40vw", float: "center", display: "inline-block"}}>
+                          <img style={{width: "70%", height: "500px", objectFit: "cover"}} src={item.image_url} />
+                        </div>
+                        <div style={{float: "left", "font-size": "15px", padding: "10px", top: 0, display: "block" }}>
+                          <strong>Rating : {item.rating}</strong><br/>
+                          <strong>Review : {item.review}</strong><br/>
+                          <strong>Durasi : {minuteToHours(item.duration)}</strong><br/>
+                          <strong>Genre : {item.genre}</strong>
+                        </div>
+                      </div>
+                      <strong>Deskripsi </strong>: 
+                      <Paragraph ellipsis={{ rows: 1, expandable: true, symbol: 'selengkapnya' }}>
+                        {item.description}
+                      </Paragraph>
+                      <hr/>
                     </div>
-                    <div style={{float: "left", "font-size": "20px", padding: "10px", top: 0, display: "inline-block" }}>
-                      <strong>Rating {item.rating}</strong><br/>
-                      <strong>Review {item.review}</strong><br/>
-                      <strong>Durasi: {minuteToHours(item.duration)}</strong><br/>
-                      <strong>genre: {item.genre}</strong>
-                    </div>
-                  </div>
-                  <p>
-                    <strong>deskripsi</strong>: 
-                    {item.description}
-                  </p>
-                  <hr/>
-                </div>
+                  </Card>
+                </Space>
               )
             })
           }
