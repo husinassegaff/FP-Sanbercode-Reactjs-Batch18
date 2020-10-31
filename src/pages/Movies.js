@@ -163,14 +163,13 @@ const Movies = () => {
     const handleEdit = () =>{
       let singleMovie = movies.find(x=> x.id === ID_MOVIES)
       setInput({
+          title: singleMovie.title,
           description: singleMovie.description,
+          year: singleMovie.year,
           duration: singleMovie.duration,
           genre: singleMovie.genre,
-          image_url: singleMovie.image_url,
           rating: singleMovie.rating,
-          review: singleMovie.review,
-          title: singleMovie.title,
-          year: singleMovie.year
+          review: singleMovie.review
       })
       setSelectedId(ID_MOVIES)
       setStatusForm("edit")
@@ -226,6 +225,7 @@ const Movies = () => {
 
   return(
     <>
+      <br/>
       <div>
         <form onSubmit={submitSearch}>
           <input type="text" value={search} onChange={handleChangeSearch} />
@@ -273,6 +273,7 @@ const Movies = () => {
         </tbody>
       </table>
       {/* Form */}
+      <br/>
       <h1>Movies Form</h1>
       <form onSubmit={handleSubmit}>
         <div>
